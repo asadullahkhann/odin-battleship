@@ -1,6 +1,6 @@
 const Ship = require('./ship');
 
-function Gameboard() {
+function createGameboard() {
   const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
   const canPlace = (x,y,len) => {
     if (x > 5) {
@@ -21,19 +21,29 @@ function Gameboard() {
     if (board[y][x] === null) board[y][x] = 0;
     else board[y][x].hit(); 
   }
+  const getShips = (row) => board[row].filter(item => item !== null && typeof item === 'object');
   function allShipsSunk() {
     for (let i = 0; i < 10; i++) {
-      const ships = board[i].filter(item => item !== null && typeof item === 'object');
+      const ships = getShips(i);
       if (!ships.every(ship => ship.isSunk())) return false;
     }
     return true;
+  }
+  function allShipsPlaced() {
+    let total = 0;
+    for (let i = 0; i < 10; i++) {
+      const ships = getShips(i);
+      total += ships.length;
+    }
+    return total === 17;
   }
   return {
     placeShip,
     receiveAttack,
     allShipsSunk,
+    allShipsPlaced,
     board,
   };
 }
 
-module.exports = Gameboard;
+module.exports = createGameboard;
