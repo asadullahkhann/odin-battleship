@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'norse-bold';
+  src: url('./fonts/Norse-Bold.otf');
+}
+
+@font-face {
+  font-family: 'ktf-roadbrush';
+  src: url('./fonts/KTF-Roadbrush.ttf');
+}
+
+:root {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+body {
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+
+header {
+  padding: 8px;
+  text-align: center;
+  font-family: 'norse-bold';
+  background-color: #1F2C3B;
+}
+
+main {
+  background-color: #0A1E3F;
+}
+
+footer {
+  padding: 8px;
+  background-color: #1F2C3B;
+}
+
+footer p {
+  font-size: 1rem;
+  font-family: "ktf-roadbrush";
+}
+
+footer a {
+  color: inherit;
+  display: inline-flex;
+  gap: 5px;
+}
+
+footer img {
+  width: 1rem;
+  height: 1rem;
+}
