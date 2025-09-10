@@ -2,12 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <title>Battleship</title>
 </head>
 <body>
   <header><h1>Battleship</h1></header>
-  <main></main>
+  <main>
+    <dialog>
+    <form method="dialog">
+      <fieldset>
+        <legend>Choose Opponent</legend>
+        <p><label for="human">Human</label><input id="human" name="player-type" value="human" type="radio"></p>
+        <p><label for="computer">Computer</label><input id="computer" name="player-type" value="computer" type="radio"></p>
+      </fieldset>
+      <button>Go</button>
+    </form>
+  </dialog>
+  </main>
   <footer>
     <p>
       Coded by

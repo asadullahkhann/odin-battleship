@@ -12,7 +12,7 @@
   height: 100%;
 }
 
-* {
+:not(dialog) {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -34,6 +34,11 @@ header {
 
 main {
   background-color: #0A1E3F;
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+  justify-content: space-around;
+  align-content: center;
+  gap: 12px;
 }
 
 footer {
@@ -55,4 +60,49 @@ footer a {
 footer img {
   width: 1rem;
   height: 1rem;
+}
+
+main > div {
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+}
+
+.cell {
+  border: 1px solid;
+  background-color: #006994;
+}
+
+dialog {
+  border: none;
+  border-radius: 5px;
+}
+
+fieldset {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border: none;
+}
+
+legend {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+form * {
+  color: #000;
+  font-family: 'ktf-roadbrush';
+}
+
+fieldset > p {
+  display: flex;
+  gap: 5px;
+}
+
+button {
+  padding: 2px 4px;
 }
