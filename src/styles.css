@@ -71,6 +71,7 @@ main > div {
 .cell {
   border: 1px solid;
   background-color: #006994;
+  height: 30px;
 }
 
 dialog {
@@ -105,4 +106,8 @@ fieldset > p {
 
 button {
   padding: 2px 4px;
+}
+
+input {
+  outline: none;
 }

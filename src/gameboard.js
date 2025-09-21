@@ -1,4 +1,6 @@
-const Ship = require('./ship');
+// const Ship = require('./ship');
+
+import { Ship } from "./ship";
 
 function createGameboard() {
   const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
@@ -46,4 +48,6 @@ function createGameboard() {
   };
 }
 
-module.exports = createGameboard;
+// module.exports = createGameboard;
+
+export { createGameboard };

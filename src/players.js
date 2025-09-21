@@ -1,4 +1,5 @@
-const createGameboard = require('./gameboard');
+// const createGameboard = require('./gameboard');
+import { createGameboard } from "./gameboard";
 
 function createPlayer(type) {
   const gameboard = createGameboard();
@@ -18,4 +19,6 @@ function createPlayer(type) {
   };
 };
 
-module.exports = createPlayer;
+// module.exports = createPlayer;
+
+export { createPlayer };
