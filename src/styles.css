@@ -108,6 +108,11 @@ button {
   padding: 2px 4px;
 }
 
+img {
+  width: 25px;
+  height: 25px;
+}
+
 input {
   outline: none;
 }

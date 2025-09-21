@@ -1,4 +1,5 @@
 import { createPlayer } from './players';
+import battleshipImg from './images/battleship.svg'
 
 const radioBtns = Array.from(document.querySelectorAll('input'));
 
@@ -10,7 +11,9 @@ const placeShipOnUi = (gameboard, parentNode) => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       if (gameboard[i][j]) {
-        parentNode.querySelectorAll(`.cell`)[+`${i}${j}`].textContent = '✅';
+        const img = document.createElement('img');
+        img.src = battleshipImg;
+        parentNode.querySelectorAll(`.cell`)[+`${i}${j}`].appendChild(img);
       }
     }
   }
