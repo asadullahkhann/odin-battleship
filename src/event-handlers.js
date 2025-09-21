@@ -50,7 +50,7 @@ function handleOkBtnClick() {
     players.player2.isCom = true;
     const gameboard2Cells = uiGameboards[1].querySelectorAll('.cell');
     gameboard2Cells.forEach(cell => {
-      cell.onclick = null;
+      cell.removeEventListener('click', handleShipPlacment)
     })
   }
 }

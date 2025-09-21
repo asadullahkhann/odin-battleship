@@ -11,7 +11,7 @@ const renderGameboard = () => {
       const cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
       cell.setAttribute('data-coordinates', `${j}${i}`);
-      cell.onclick = handleShipPlacment;
+      cell.addEventListener('click', handleShipPlacment)
       container.appendChild(cell);
     }
   }
