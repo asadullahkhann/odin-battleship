@@ -13,13 +13,13 @@ const renderGameboard = () => {
       cell.setAttribute('data-coordinates', `${j}${i}`);
       cell.addEventListener('click', handleShipPlacment)
       container.appendChild(cell);
-    }
-  }
+    };
+  };
   mainEl.appendChild(container);
   const clone = container.cloneNode(true);
   clone.querySelectorAll('.cell').forEach(cell => {
-    cell.onclick = handleShipPlacment;
-  })
+    cell.addEventListener('click', handleShipPlacment);
+  });
   mainEl.appendChild(clone);
 };
 
@@ -27,6 +27,6 @@ function showDialog() {
   dialog.showModal();
 };
 
-okBtn.addEventListener('click', handleOkBtnClick)
+okBtn.addEventListener('click', handleOkBtnClick);
 
 export { renderGameboard, showDialog };
