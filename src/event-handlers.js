@@ -5,7 +5,7 @@ import fireImg2 from './images/fire2.gif';
 
 const radioBtns = Array.from(document.querySelectorAll('input'));
 const dialog = document.querySelector('dialog');
-const closeDialogBtn = document.querySelector('div > button');
+const playAgainBtn = document.querySelector('div > button');
 
 let players = {};
 
@@ -47,6 +47,7 @@ const showWinningMessage = (msg) => {
 }
 
 const getUiGameboards = () => document.querySelectorAll('main > div');
+const getCells = () => document.querySelectorAll('.cell');
 
 function handleShipPlacment(e) {
   const uiGameboards = getUiGameboards();
@@ -69,7 +70,7 @@ function handleShipPlacment(e) {
   if (players.player1.gameboard.allShipsPlaced() &&
     players.player2.gameboard.allShipsPlaced()
   ) {
-    document.querySelectorAll('.cell').forEach(cell => {
+    getCells().forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment);
       cell.addEventListener('click', handleShipAttack);
       if (cell.firstChild) cell.removeChild(cell.firstChild);
@@ -116,7 +117,18 @@ function handleOkBtnClick() {
   }
 };
 
-closeDialogBtn.addEventListener('click', () => {
+playAgainBtn.addEventListener('click', () => {
+  const cells = getCells();
+  cells.forEach(cell => {
+    players.player1 = createPlayer('human');
+    players.player2 = players.player2.isCom
+      ? createPlayer('computer')
+      : createPlayer('human');
+    cell.removeEventListener('click', handleShipAttack);
+    cell.addEventListener('click', handleShipPlacment);
+    cell.style.opacity = 1;
+    if (cell.firstChild) cell.removeChild(cell.firstChild);
+  })
   dialog.close();
 });
 
