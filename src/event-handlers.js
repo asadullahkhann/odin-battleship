@@ -7,8 +7,6 @@ const radioBtns = Array.from(document.querySelectorAll('input'));
 const dialog = document.querySelector('dialog');
 const closeDialogBtn = document.querySelector('div > button');
 
-const shipLengths = [[5,4,3,3,2], [5,4,3,3,2]];
-
 let players = {};
 
 const placeShipOnUi = (gameboard, parentNode) => {
@@ -51,7 +49,6 @@ const showWinningMessage = (msg) => {
 const getUiGameboards = () => document.querySelectorAll('main > div');
 
 function handleShipPlacment(e) {
-  if (!e.target.classList.contains('cell') || e.target.firstChild) return;
   const uiGameboards = getUiGameboards();
   const coordinates = e.target.getAttribute('data-coordinates');
   const x = +coordinates[0];
@@ -59,17 +56,16 @@ function handleShipPlacment(e) {
   if (e.target.parentNode === uiGameboards[0] &&
     !players.player1.gameboard.allShipsPlaced()
   ) {
-    const shipLength = shipLengths[0].shift();
-    players.player1.gameboard.placeShip(x,y,shipLength);
+    players.player1.gameboard.placeShip(x,y);
     placeShipOnUi(players.player1.gameboard.board, uiGameboards[0]);
-    return;
+    if (e.target.firstChild) e.target.removeEventListener('click', handleShipPlacment);
   } else if (e.target.parentNode === uiGameboards[1] && 
     !players.player2.gameboard.allShipsPlaced()
     ) {
-    const shipLength = shipLengths[1].shift();
-    players.player2.gameboard.placeShip(x,y,shipLength);
+    players.player2.gameboard.placeShip(x,y);
     placeShipOnUi(players.player2.gameboard.board, uiGameboards[1]);
-  }
+    if (e.target.firstChild) e.target.removeEventListener('click', handleShipPlacment);
+    }
   if (players.player1.gameboard.allShipsPlaced() &&
     players.player2.gameboard.allShipsPlaced()
   ) {

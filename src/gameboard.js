@@ -4,20 +4,32 @@ import { Ship } from "./ship";
 
 function createGameboard() {
   const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
-  const canPlace = (x,y,len) => {
-    if (x > 5) {
-      return board[y].slice(x+1-len, x+1).every(item => item === null);  
-    }
-    return board[y].slice(x, x+len).every(item => item === null);
-  };
-  function placeShip(x, y, len) {
-    if (!canPlace(x, y, len)) return;
+  const shipLengths = [5,4,3,3,2];
+  const canPlaceOnLeft = (x,y,len) => {
+    const arr = board[y].slice(x+1-len, x+1);
+    return arr.length >= len && arr.every(item => item === null);
+  } 
+  const canPlaceOnRight = (x,y,len) => {
+    const arr = board[y].slice(x, x+len);
+    return arr.length >= len && arr.every(item => item === null);
+  } 
 
+  function placeShip(x, y) {
+    const len = shipLengths.shift();
     const ship = new Ship(len);
-    for (let i = 0; i < len; i++) {
-      let X = x > 5 ? x - i : x + i;
-      board[y][X] = ship;
+    if (canPlaceOnLeft(x,y,len)) {
+      for (let i = 0; i < len; i++) {
+        board[y][x-i] = ship;
     }
+      return;
+    } else if (canPlaceOnRight(x,y,len)) {
+        for (let i = 0; i < len; i++) {
+          board[y][x+i] = ship;
+        }
+        return;
+    }
+    console.log(len)
+    shipLengths.unshift(len);
   }
   function receiveAttack(x, y) {
     if (board[y][x] === null) board[y][x] = 0;
