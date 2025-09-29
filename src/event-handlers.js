@@ -25,11 +25,9 @@ const placeAttackOnUi = (x, y, gameboard, parentNode) => {
   const img = document.createElement('img');
   const cell = parentNode.querySelectorAll('.cell')[+`${y}${x}`];
   switch (gameboard[y][x]) {
-    case null:
-      break;
     case 0:
       cell.style.opacity = 0.5;
-      break
+      break;
     default:
       img.src = fireImg1;
       cell.appendChild(img);
@@ -47,7 +45,16 @@ const showWinningMessage = (msg) => {
 }
 
 const getUiGameboards = () => document.querySelectorAll('main > div');
-const getCells = () => document.querySelectorAll('.cell');
+const getCells = () => Array.from(document.querySelectorAll('.cell'));
+const getRandomCoordinates = () => {
+  const emptyCells = getCells().slice(0,100).filter(cell => {
+    return !cell.firstChild && cell.style.opacity !== '0.5';
+  });
+  const randomIndex = Math.floor(Math.random() * emptyCells.length)
+  const randomEmptyCell = emptyCells[randomIndex];
+  const coordinates = randomEmptyCell.getAttribute('data-coordinates');
+  return coordinates;
+}
 
 function handleShipPlacment(e) {
   const uiGameboards = getUiGameboards();
@@ -59,22 +66,28 @@ function handleShipPlacment(e) {
   ) {
     players.player1.gameboard.placeShip(x,y);
     placeShipOnUi(players.player1.gameboard.board, uiGameboards[0]);
-    if (e.target.firstChild) e.target.removeEventListener('click', handleShipPlacment);
+    e.target.removeEventListener('click', handleShipPlacment);
   } else if (e.target.parentNode === uiGameboards[1] && 
     !players.player2.gameboard.allShipsPlaced()
     ) {
-    players.player2.gameboard.placeShip(x,y);
-    placeShipOnUi(players.player2.gameboard.board, uiGameboards[1]);
-    if (e.target.firstChild) e.target.removeEventListener('click', handleShipPlacment);
+      players.player2.gameboard.placeShip(x,y);
+      placeShipOnUi(players.player2.gameboard.board, uiGameboards[1]);
+      e.target.removeEventListener('click', handleShipPlacment);
     }
   if (players.player1.gameboard.allShipsPlaced() &&
     players.player2.gameboard.allShipsPlaced()
   ) {
-    getCells().forEach(cell => {
+    const cells = getCells();
+    cells.forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment);
       cell.addEventListener('click', handleShipAttack);
       if (cell.firstChild) cell.removeChild(cell.firstChild);
-    })
+    });
+    if (players.player2.isCom) {
+      cells.slice(0,100).forEach(cell => {
+        cell.removeEventListener('click', handleShipAttack);
+      });
+    }
   }
 }
 
@@ -86,12 +99,19 @@ function handleShipAttack(e) {
   switch (e.target.parentNode) {
     case uiGameboards[0]:
       players.player1.gameboard.receiveAttack(x,y);
-      placeAttackOnUi(x, y, players.player1.gameboard.board, e.target.parentNode);
+      placeAttackOnUi(x, y, players.player1.gameboard.board, uiGameboards[0]);
       e.target.removeEventListener('click', handleShipAttack);
       break;
     case uiGameboards[1]: 
       players.player2.gameboard.receiveAttack(x,y);
-      placeAttackOnUi(x, y, players.player2.gameboard.board, e.target.parentNode);
+      placeAttackOnUi(x, y, players.player2.gameboard.board, uiGameboards[1]);
+      if (players.player2.isCom) {
+        const coordinates = getRandomCoordinates();
+        const x = +coordinates[0];
+        const y = +coordinates[1];
+        players.player1.gameboard.receiveAttack(x,y);
+        placeAttackOnUi(x, y, players.player1.gameboard.board, uiGameboards[0])
+      };
       e.target.removeEventListener('click', handleShipAttack);
       break;
   };
@@ -109,7 +129,6 @@ function handleOkBtnClick() {
   players.player1 = createPlayer('human');
   players.player2 = createPlayer(opponent);
   if (opponent === 'computer') {
-    players.player2.isCom = true;
     const gameboard2Cells = uiGameboards[1].querySelectorAll('.cell');
     gameboard2Cells.forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment)
@@ -118,12 +137,12 @@ function handleOkBtnClick() {
 };
 
 playAgainBtn.addEventListener('click', () => {
-  const cells = getCells();
-  cells.forEach(cell => {
-    players.player1 = createPlayer('human');
+  players.player1 = createPlayer('human');
     players.player2 = players.player2.isCom
       ? createPlayer('computer')
       : createPlayer('human');
+  const cells = getCells();
+  cells.forEach(cell => {
     cell.removeEventListener('click', handleShipAttack);
     cell.addEventListener('click', handleShipPlacment);
     cell.style.opacity = 1;

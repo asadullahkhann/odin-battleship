@@ -10,8 +10,10 @@ function createPlayer(type) {
       const y = i;
       gameboard.placeShip(x,y,shipLengths[i]);
     }
+    let isCom = true;
     return {
-      gameboard
+      gameboard,
+      isCom
     };
   }
   return {

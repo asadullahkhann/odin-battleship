@@ -28,7 +28,6 @@ function createGameboard() {
         }
         return;
     }
-    console.log(len)
     shipLengths.unshift(len);
   }
   function receiveAttack(x, y) {
