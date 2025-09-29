@@ -34,7 +34,7 @@ const renderGameboard = () => {
   mainEl.appendChild(clone);
 };
 
-function showDialog() {
+const showDialog = () => {
   dialog.showModal();
 };
 
@@ -87,5 +87,4 @@ export {
   placeShipOnUi, 
   placeAttackOnUi,
   showWinningMessage,
-
 };

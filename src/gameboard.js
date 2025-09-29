@@ -1,6 +1,6 @@
 // const Ship = require('./ship');
 
-import { Ship } from "./ship";
+import { createShip } from "./ship";
 
 function createGameboard() {
   const board = new Array(10).fill(null).map(() => new Array(10).fill(null));
@@ -14,9 +14,9 @@ function createGameboard() {
     return arr.length >= len && arr.every(item => item === null);
   } 
 
-  function placeShip(x, y) {
+  const placeShip = (x, y) => {
     const len = shipLengths.shift();
-    const ship = new Ship(len);
+    const ship = createShip(len);
     if (canPlaceOnLeft(x,y,len)) {
       for (let i = 0; i < len; i++) {
         board[y][x-i] = ship;
@@ -30,26 +30,19 @@ function createGameboard() {
     }
     shipLengths.unshift(len);
   }
-  function receiveAttack(x, y) {
+  const receiveAttack = (x, y) => {
     if (board[y][x] === null) board[y][x] = 0;
     else board[y][x].hit(); 
   }
   const getShips = (row) => board[row].filter(item => item !== null && typeof item === 'object');
-  function allShipsSunk() {
+  const allShipsSunk = () => {
     for (let i = 0; i < 10; i++) {
       const ships = getShips(i);
       if (!ships.every(ship => ship.isSunk())) return false;
     }
     return true;
   }
-  function allShipsPlaced() {
-    let total = 0;
-    for (let i = 0; i < 10; i++) {
-      const ships = getShips(i);
-      total += ships.length;
-    }
-    return total === 17;
-  }
+  const allShipsPlaced = () => shipLengths.length === 0;
   return {
     placeShip,
     receiveAttack,

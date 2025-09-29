@@ -1,16 +1,18 @@
-class Ship {
-  constructor(length) {
-    this.length = length;
-    this.timesHit = 0;
+function createShip(length) {
+    let len = length;
+    let timesHit = 0
+  const isSunk = () => {
+    return timesHit === len;
   }
-  isSunk() {
-    return this.timesHit === this.length;
+  const hit = () => {
+    timesHit += 1; 
   }
-  hit() {
-    this.timesHit += 1;
+  return {
+    isSunk,
+    hit,
   }
 }
 
 // module.exports = Ship;
 
-export { Ship };
+export { createShip };

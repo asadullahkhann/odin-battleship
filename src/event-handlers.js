@@ -19,7 +19,7 @@ const getRandomCoordinates = () => {
   return coordinates;
 }
 
-function handleShipPlacment(e) {
+const handleShipPlacment = (e) => {
   const uiGameboards = getUiGameboards();
   const coordinates = e.target.getAttribute('data-coordinates');
   const x = +coordinates[0];
@@ -54,7 +54,7 @@ function handleShipPlacment(e) {
   }
 }
 
-function handleShipAttack(e) {
+const handleShipAttack = (e) => {
   const uiGameboards = getUiGameboards();
   const coordinates = e.target.getAttribute('data-coordinates');
   const x = +coordinates[0];
@@ -86,7 +86,7 @@ function handleShipAttack(e) {
   }
 };
 
-function handleOkBtnClick() { 
+const handleOkBtnClick = () => { 
   const radioBtns = Array.from(document.querySelectorAll('input'));
   const opponent = radioBtns.filter(radioBtn => radioBtn.checked)[0].value;
   players.player1 = createPlayer('human');
@@ -99,7 +99,7 @@ function handleOkBtnClick() {
   }
 };
 
-function handlePlayAgain() {
+const handlePlayAgain = () => {
   players.player1 = createPlayer('human');
     players.player2 = players.player2.isCom
       ? createPlayer('computer')
