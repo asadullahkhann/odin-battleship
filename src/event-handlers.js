@@ -78,12 +78,13 @@ function handleShipAttack(e) {
       e.target.removeEventListener('click', handleShipAttack);
       break;
   };
+  const opponent = players.player2.isCom ? 'Computer' : 'Player 2';
   if (players.player1.gameboard.allShipsSunk()) {
-    showWinningMessage('All ships sunk of Player 1 therefore Player 2 won');
+    showWinningMessage(`All the Player 1's ships are sunk. ${opponent} wins!`);
   } else if (players.player2.gameboard.allShipsSunk()) {
-    showWinningMessage('All ships sunk of Player 2 therefore Player 1 won');
+    showWinningMessage(`All the ${opponent}'s ships are sunk. Player 1 wins!`);
   }
-}
+};
 
 function handleOkBtnClick() { 
   const radioBtns = Array.from(document.querySelectorAll('input'));
