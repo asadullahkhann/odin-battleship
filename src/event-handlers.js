@@ -3,11 +3,7 @@ import {
   placeAttackOnUi,
   placeShipOnUi,
   showWinningMessage
- } from './dom-manipulator'
-
-const radioBtns = Array.from(document.querySelectorAll('input'));
-const dialog = document.querySelector('dialog');
-const playAgainBtn = document.querySelector('div > button');
+} from './dom-manipulator';
 
 let players = {};
 
@@ -87,23 +83,22 @@ function handleShipAttack(e) {
   } else if (players.player2.gameboard.allShipsSunk()) {
     showWinningMessage('All ships sunk of Player 2 therefore Player 1 won');
   }
-
 }
 
 function handleOkBtnClick() { 
-  const uiGameboards = getUiGameboards();
+  const radioBtns = Array.from(document.querySelectorAll('input'));
   const opponent = radioBtns.filter(radioBtn => radioBtn.checked)[0].value;
   players.player1 = createPlayer('human');
   players.player2 = createPlayer(opponent);
   if (opponent === 'computer') {
-    const gameboard2Cells = uiGameboards[1].querySelectorAll('.cell');
+    const gameboard2Cells = getCells().slice(100);
     gameboard2Cells.forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment)
     })
   }
 };
 
-playAgainBtn.addEventListener('click', () => {
+function handlePlayAgain() {
   players.player1 = createPlayer('human');
     players.player2 = players.player2.isCom
       ? createPlayer('computer')
@@ -115,7 +110,10 @@ playAgainBtn.addEventListener('click', () => {
     cell.style.opacity = 1;
     if (cell.firstChild) cell.removeChild(cell.firstChild);
   })
-  dialog.close();
-});
+};
 
-export { handleOkBtnClick, handleShipPlacment };
+export { 
+  handleOkBtnClick, 
+  handleShipPlacment, 
+  handlePlayAgain,
+};

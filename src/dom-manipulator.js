@@ -1,4 +1,8 @@
-import { handleShipPlacment, handleOkBtnClick } from "./event-handlers";
+import { 
+  handleShipPlacment, 
+  handleOkBtnClick,
+  handlePlayAgain,
+} from "./event-handlers";
 import battleshipImg from './images/battleship2.svg';
 import fireImg1 from './images/fire1.gif';
 import fireImg2 from './images/fire2.gif';
@@ -9,6 +13,7 @@ const explosionAudio = new Audio(explosionSound);
 const mainEl = document.querySelector('main');
 const dialog = document.querySelector('dialog');
 const okBtn = document.querySelector('button');
+const playAgainBtn = document.querySelector('div > button');
 
 const renderGameboard = () => {
   const container = document.createElement('div');
@@ -70,6 +75,11 @@ const showWinningMessage = (msg) => {
 }
 
 okBtn.addEventListener('click', handleOkBtnClick);
+
+playAgainBtn.addEventListener('click', () => {
+  handlePlayAgain();
+  dialog.close();
+});
 
 export { 
   renderGameboard, 
