@@ -1,48 +1,15 @@
 import { createPlayer } from './players';
-import battleshipImg from './images/battleship2.svg';
-import fireImg1 from './images/fire1.gif';
-import fireImg2 from './images/fire2.gif';
+import {
+  placeAttackOnUi,
+  placeShipOnUi,
+  showWinningMessage
+ } from './dom-manipulator'
 
 const radioBtns = Array.from(document.querySelectorAll('input'));
 const dialog = document.querySelector('dialog');
 const playAgainBtn = document.querySelector('div > button');
 
 let players = {};
-
-const placeShipOnUi = (gameboard, parentNode) => {
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      const cell = parentNode.querySelectorAll(`.cell`)[+`${i}${j}`];
-      if (!gameboard[i][j] || cell.firstChild) continue;
-      const img = document.createElement('img');
-      img.src = battleshipImg;
-      cell.appendChild(img);
-    }
-  }
-};
-
-const placeAttackOnUi = (x, y, gameboard, parentNode) => {
-  const img = document.createElement('img');
-  const cell = parentNode.querySelectorAll('.cell')[+`${y}${x}`];
-  switch (gameboard[y][x]) {
-    case 0:
-      cell.style.opacity = 0.5;
-      break;
-    default:
-      img.src = fireImg1;
-      cell.appendChild(img);
-      setTimeout(() => {
-        img.src = fireImg2;
-      }, 1000);
-  }
-};
-
-const showWinningMessage = (msg) => {
-  dialog.querySelector('form').classList.add('hide');
-  dialog.querySelector('div').classList.remove('hide');
-  dialog.querySelector('div > p').textContent = msg;
-  dialog.showModal();
-}
 
 const getUiGameboards = () => document.querySelectorAll('main > div');
 const getCells = () => Array.from(document.querySelectorAll('.cell'));
@@ -110,7 +77,7 @@ function handleShipAttack(e) {
         const x = +coordinates[0];
         const y = +coordinates[1];
         players.player1.gameboard.receiveAttack(x,y);
-        placeAttackOnUi(x, y, players.player1.gameboard.board, uiGameboards[0])
+        placeAttackOnUi(x, y, players.player1.gameboard.board, uiGameboards[0]);
       };
       e.target.removeEventListener('click', handleShipAttack);
       break;
