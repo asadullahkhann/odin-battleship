@@ -1,9 +1,7 @@
 function createShip(length) {
-    let len = length;
-    let timesHit = 0
-  const isSunk = () => {
-    return timesHit === len;
-  }
+  let len = length;
+  let timesHit = 0
+  const isSunk = () => timesHit === len;
   const hit = () => {
     timesHit += 1; 
   }
