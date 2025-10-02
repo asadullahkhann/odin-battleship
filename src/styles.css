@@ -35,7 +35,7 @@ header {
 main {
   background-color: #0A1E3F;
   display: grid;
-  grid-template-columns: repeat(2, 300px);
+  grid-template-columns: repeat(2, 400px);
   justify-content: space-around;
   align-content: center;
   gap: 12px;
@@ -63,16 +63,16 @@ footer img {
 }
 
 main > div {
-  height: 300px;
+  height: 400px;
   display: grid;
-  grid-template-columns: repeat(10, 30px);
+  grid-template-columns: repeat(10, 40px);
   box-shadow: 0 0 10px rgba(0, 105, 148, 0.6);
 }
 
 .cell {
   border: 1px solid;
   background-color: #006994;
-  height: 30px;
+  height: 40px;
 }
 
 dialog {
@@ -109,12 +109,11 @@ button {
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-
 }
 
 img {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
 }
 
 input {
