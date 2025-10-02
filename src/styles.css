@@ -70,7 +70,8 @@ main > div {
 }
 
 .cell {
-  border: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
   background-color: #006994;
   height: 40px;
 }
@@ -134,4 +135,12 @@ dialog > div {
 
 button:hover {
   background-color: #00A3CC;
+}
+
+.cell:nth-child(10n) {
+  border-right: 1px solid;
+}
+
+.cell:nth-child(n + 91) {
+  border-bottom: 1px solid;
 }
