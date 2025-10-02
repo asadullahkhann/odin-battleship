@@ -86,7 +86,7 @@ const handleShipAttack = (e) => {
   }
 };
 
-const handleOkBtnClick = () => { 
+const handlePlayBtnClick = () => { 
   const radioBtns = Array.from(document.querySelectorAll('input'));
   const opponent = radioBtns.filter(radioBtn => radioBtn.checked)[0].value;
   players.player1 = createPlayer('human');
@@ -114,7 +114,7 @@ const handlePlayAgain = () => {
 };
 
 export { 
-  handleOkBtnClick, 
+  handlePlayBtnClick, 
   handleShipPlacment, 
   handlePlayAgain,
 };

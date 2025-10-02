@@ -1,14 +1,16 @@
 import { 
   handleShipPlacment, 
-  handleOkBtnClick,
+  handlePlayBtnClick,
   handlePlayAgain,
 } from "./event-handlers";
 import battleshipImg from './images/battleship2.svg';
 import fireImg1 from './images/fire1.gif';
 import fireImg2 from './images/fire2.gif';
-import explosionSound from './sounds/explosion.mp3';
+import explosionMp3 from './sounds/explosion.mp3';
+import victoryMp3 from './sounds/victory.mp3';
 
-const explosionAudio = new Audio(explosionSound);
+const explosionSound = new Audio(explosionMp3);
+const victorySound = new Audio(victoryMp3);
 
 const mainEl = document.querySelector('main');
 const dialog = document.querySelector('dialog');
@@ -58,7 +60,7 @@ const placeAttackOnUi = (x, y, gameboard, parentNode) => {
       cell.style.opacity = 0.5;
       break;
     default:
-      explosionAudio.play();
+      explosionSound.play();
       img.src = fireImg1;
       cell.appendChild(img);
       setTimeout(() => {
@@ -68,13 +70,16 @@ const placeAttackOnUi = (x, y, gameboard, parentNode) => {
 };
 
 const showWinningMessage = (msg) => {
-  dialog.querySelector('form').classList.add('hide');
-  dialog.querySelector('div').classList.remove('hide');
-  dialog.querySelector('div > p').textContent = msg;
-  dialog.showModal();
+  setTimeout(() => {
+    victorySound.play();
+    dialog.querySelector('form').classList.add('hide');
+    dialog.querySelector('div').classList.remove('hide');
+    dialog.querySelector('div > p').textContent = msg;
+    dialog.showModal();
+  }, 1000);
 }
 
-okBtn.addEventListener('click', handleOkBtnClick);
+okBtn.addEventListener('click', handlePlayBtnClick);
 
 playAgainBtn.addEventListener('click', () => {
   handlePlayAgain();
