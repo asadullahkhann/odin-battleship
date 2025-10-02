@@ -80,9 +80,9 @@ const handleShipAttack = (e) => {
   };
   const opponent = players.player2.isCom ? 'Computer' : 'Player 2';
   if (players.player1.gameboard.allShipsSunk()) {
-    showWinningMessage(`All the Player 1's ships are sunk. ${opponent} wins!`);
+    showWinningMessage(`${opponent} wins — all Player 1 ships sunk`);
   } else if (players.player2.gameboard.allShipsSunk()) {
-    showWinningMessage(`All the ${opponent}'s ships are sunk. Player 1 wins!`);
+    showWinningMessage(`Player 1 wins — all ${opponent} ships sunk`);
   }
 };
 
