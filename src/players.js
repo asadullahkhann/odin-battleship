@@ -1,10 +1,8 @@
-// const createGameboard = require('./gameboard');
 import { createGameboard } from "./gameboard";
 
 function createPlayer(type) {
   const gameboard = createGameboard();
   if (type === 'computer') {
-    const shipLengths = [5,4,3,3,2];
     for (let i = 0; i < 5; i++) {
       const x = Math.floor(Math.random() * 10);
       const emptyRows = gameboard.board.filter(row => row.every(item => item === null));
@@ -14,7 +12,7 @@ function createPlayer(type) {
       });
       const randomIndexOfEmptyRow = Math.floor(Math.random() * indexesOfEmptyRows.length);
       const y = indexesOfEmptyRows[randomIndexOfEmptyRow];
-      gameboard.placeShip(x,y,shipLengths[i]);
+      gameboard.placeShip(x,y);
     }
     let isCom = true;
     return {
@@ -26,7 +24,5 @@ function createPlayer(type) {
     gameboard
   };
 };
-
-// module.exports = createPlayer;
 
 export { createPlayer };

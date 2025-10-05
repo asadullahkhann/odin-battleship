@@ -1,5 +1,3 @@
-// const Ship = require('./ship');
-
 import { createShip } from "./ship";
 
 function createGameboard() {
@@ -51,7 +49,5 @@ function createGameboard() {
     board,
   };
 }
-
-// module.exports = createGameboard;
 
 export { createGameboard };

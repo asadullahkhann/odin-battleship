@@ -9,8 +9,6 @@ function createShip(length) {
     isSunk,
     hit,
   }
-}
-
-// module.exports = Ship;
+};
 
 export { createShip };
