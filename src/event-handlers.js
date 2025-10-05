@@ -57,7 +57,9 @@ const handleShipPlacment = (e) => {
   ) {
     cells.forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment);
-      cell.addEventListener('click', handleShipAttack);
+      setTimeout(() => {
+        cell.addEventListener('click', handleShipAttack);
+      }, 1000);
     });
     if (players.player2.isCom) {
       cells.slice(0,100).forEach(cell => {
