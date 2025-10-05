@@ -14,7 +14,7 @@ const victorySound = new Audio(victoryMp3);
 
 const mainEl = document.querySelector('main');
 const dialog = document.querySelector('dialog');
-const okBtn = document.querySelector('button');
+const playBtn = document.querySelector('button');
 const playAgainBtn = document.querySelector('div > button');
 
 const renderGameboard = () => {
@@ -79,7 +79,7 @@ const showWinningMessage = (msg) => {
   }, 1000);
 }
 
-okBtn.addEventListener('click', handlePlayBtnClick);
+playBtn.addEventListener('click', handlePlayBtnClick);
 
 playAgainBtn.addEventListener('click', () => {
   handlePlayAgain();

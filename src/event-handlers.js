@@ -21,6 +21,7 @@ const getRandomCoordinates = () => {
 
 const handleShipPlacment = (e) => {
   const uiGameboards = getUiGameboards();
+  const cells = getCells();
   const coordinates = e.target.getAttribute('data-coordinates');
   const x = +coordinates[0];
   const y = +coordinates[1];
@@ -37,14 +38,26 @@ const handleShipPlacment = (e) => {
       placeShipOnUi(players.player2.gameboard.board, uiGameboards[1]);
       e.target.removeEventListener('click', handleShipPlacment);
     }
+  if (players.player1.gameboard.allShipsPlaced()) {
+    cells.slice(0,100).filter(cell => cell.firstChild).forEach(cell => {
+      setTimeout(() => {
+        cell.removeChild(cell.firstChild);
+      }, 1000);
+    });
+  }
+  if (players.player2.gameboard.allShipsPlaced()) {
+    cells.slice(100).filter(cell => cell.firstChild).forEach(cell => {
+      setTimeout(() => {
+        cell.removeChild(cell.firstChild);
+      }, 1000);
+    })
+  }
   if (players.player1.gameboard.allShipsPlaced() &&
     players.player2.gameboard.allShipsPlaced()
   ) {
-    const cells = getCells();
     cells.forEach(cell => {
       cell.removeEventListener('click', handleShipPlacment);
       cell.addEventListener('click', handleShipAttack);
-      if (cell.firstChild) cell.removeChild(cell.firstChild);
     });
     if (players.player2.isCom) {
       cells.slice(0,100).forEach(cell => {
