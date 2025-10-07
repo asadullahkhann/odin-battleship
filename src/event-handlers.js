@@ -62,9 +62,11 @@ const handleShipPlacment = (e) => {
       }, 1000);
     });
     if (players.player2.isCom) {
-      cells.slice(0,100).forEach(cell => {
+      setTimeout(() => {
+        cells.slice(0,100).forEach(cell => {
         cell.removeEventListener('click', handleShipAttack);
       });
+      }, 1000);
     }
   }
 }
