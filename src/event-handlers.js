@@ -10,9 +10,7 @@ let players = {};
 const getUiGameboards = () => document.querySelectorAll('main > div');
 const getCells = () => Array.from(document.querySelectorAll('.cell'));
 const getRandomCoordinates = () => {
-  const emptyCells = getCells().slice(0,100).filter(cell => {
-    return !cell.firstChild && cell.style.opacity !== '0.5';
-  });
+  const emptyCells = getCells().slice(0,100).filter(cell => !cell.firstChild)
   const randomIndex = Math.floor(Math.random() * emptyCells.length)
   const randomEmptyCell = emptyCells[randomIndex];
   const coordinates = randomEmptyCell.getAttribute('data-coordinates');
@@ -125,7 +123,6 @@ const handlePlayAgain = () => {
   cells.forEach(cell => {
     cell.removeEventListener('click', handleShipAttack);
     cell.addEventListener('click', handleShipPlacment);
-    cell.style.opacity = 1;
     if (cell.firstChild) cell.removeChild(cell.firstChild);
   })
 };

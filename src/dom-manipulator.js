@@ -6,6 +6,7 @@ import {
 import battleshipImg from './images/battleship2.svg';
 import fireImg1 from './images/fire1.gif';
 import fireImg2 from './images/fire2.gif';
+import dotImg from './images/dot-small.svg';
 import explosionMp3 from './sounds/explosion.mp3';
 import victoryMp3 from './sounds/victory.mp3';
 
@@ -57,7 +58,8 @@ const placeAttackOnUi = (x, y, gameboard, parentNode) => {
   const cell = parentNode.querySelectorAll('.cell')[+`${y}${x}`];
   switch (gameboard[y][x]) {
     case 0:
-      cell.style.opacity = 0.5;
+      img.src = dotImg;
+      cell.appendChild(img);
       break;
     default:
       explosionSound.play();

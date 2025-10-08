@@ -74,6 +74,9 @@ main > div {
   border-top: 1px solid;
   background-color: #006994;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 dialog {
