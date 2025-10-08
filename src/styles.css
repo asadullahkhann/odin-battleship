@@ -29,7 +29,7 @@ header {
   padding: 8px;
   text-align: center;
   font-family: 'norse-bold';
-  background-color: #1F2C3B;
+  background-color: #0A1E3F;
 }
 
 main {
@@ -43,7 +43,7 @@ main {
 
 footer {
   padding: 8px;
-  background-color: #1F2C3B;
+  background-color: #0A1E3F;
 }
 
 footer p {
@@ -66,13 +66,14 @@ main > div {
   height: 400px;
   display: grid;
   grid-template-columns: repeat(10, 40px);
-  box-shadow: 0 0 10px rgba(0, 105, 148, 0.6);
+  box-shadow: 0 0 12px 3px rgba(0, 217, 255, 0.7);
+
 }
 
 .cell {
   border-left: 1px solid;
   border-top: 1px solid;
-  background-color: #006994;
+  background-color: #007BA7;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -82,8 +83,9 @@ main > div {
 dialog {
   border: none;
   border-radius: 5px;
-  background-color: #1F2C3B;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  background-color: #132D46;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+
 
 }
 
@@ -109,7 +111,7 @@ fieldset > p {
 
 button {
   padding: 4px 8px;
-  background-color: #006994;
+  background-color: #FF9500;
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -122,7 +124,7 @@ img {
 
 input {
   outline: none;
-  accent-color: #00A3CC;
+  accent-color: #FF9500;
 }
 
 .hide {
@@ -137,7 +139,7 @@ dialog > div {
 }
 
 button:hover {
-  background-color: #00A3CC;
+  box-shadow: 0 0 8px #00D9FF;
 }
 
 .cell:nth-child(10n) {
