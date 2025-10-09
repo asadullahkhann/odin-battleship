@@ -16,7 +16,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: #fff;
 }
 
 body {
@@ -36,10 +35,6 @@ main {
   justify-content: space-around;
   align-content: center;
   gap: 12px;
-}
-
-header, main, footer {
-  background-color: #0A1E3F;
 }
 
 header, footer {
@@ -66,14 +61,11 @@ main > div {
   height: 400px;
   display: grid;
   grid-template-columns: repeat(10, 40px);
-  box-shadow: 0 0 12px 3px rgba(0, 217, 255, 0.7);
-
 }
 
 .cell {
-  border-left: 1px solid;
-  border-top: 1px solid;
-  background-color: #007BA7;
+  border-left: 1px solid #b5b5fb;
+  border-top: 1px solid #b5b5fb;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -83,8 +75,8 @@ main > div {
 dialog {
   border: none;
   border-radius: 5px;
-  background-color: #132D46;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  background-color: #f8f8f8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 fieldset {
@@ -99,7 +91,7 @@ form, legend {
 }
 
 dialog * {
-  font-family: 'ktf-roadbrush';
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 fieldset > p {
@@ -109,10 +101,10 @@ fieldset > p {
 
 button {
   padding: 4px 8px;
-  background-color: #FF9500;
+  background: linear-gradient(180deg, #daf3d8, #d2ecd3, #cfe9d0, #c8e2c9);
   border: none;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
 }
 
 img {
@@ -122,7 +114,6 @@ img {
 
 input {
   outline: none;
-  accent-color: #FF9500;
 }
 
 .hide {
@@ -137,26 +128,27 @@ dialog > div {
 }
 
 button:hover {
-  box-shadow: 0 0 8px #00D9FF;
+  cursor: pointer;
 }
 
 .cell:nth-child(10n) {
-  border-right: 1px solid;
+  border-right: 1px solid #b5b5fb;
 }
 
 .cell:nth-child(n + 91) {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #b5b5fb;
 }
 
 .cell.border-y {
-  border-top: 3px solid #FF9500;
-  border-bottom: 3px solid #FF9500;
+  border-top: 3px solid #0404fc;
+  border-bottom: 3px solid #0404fc;
+  background-color: #f2f2fe;
 }
 
 .cell.border-left {
-  border-left: 3px solid #FF9500;
+  border-left: 3px solid #0404fc;
 }
 
 .cell.border-right {
-  border-right: 3px solid #FF9500;
+  border-right: 3px solid #0404fc;
 }
