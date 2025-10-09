@@ -26,14 +26,11 @@ body {
 }
 
 header {
-  padding: 8px;
   text-align: center;
   font-family: 'norse-bold';
-  background-color: #0A1E3F;
 }
 
 main {
-  background-color: #0A1E3F;
   display: grid;
   grid-template-columns: repeat(2, 400px);
   justify-content: space-around;
@@ -41,9 +38,12 @@ main {
   gap: 12px;
 }
 
-footer {
-  padding: 8px;
+header, main, footer {
   background-color: #0A1E3F;
+}
+
+header, footer {
+  padding: 8px;
 }
 
 footer p {
@@ -85,8 +85,6 @@ dialog {
   border-radius: 5px;
   background-color: #132D46;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-
-
 }
 
 fieldset {
@@ -148,4 +146,17 @@ button:hover {
 
 .cell:nth-child(n + 91) {
   border-bottom: 1px solid;
+}
+
+.cell.border-y {
+  border-top: 3px solid #FF9500;
+  border-bottom: 3px solid #FF9500;
+}
+
+.cell.border-left {
+  border-left: 3px solid #FF9500;
+}
+
+.cell.border-right {
+  border-right: 3px solid #FF9500;
 }

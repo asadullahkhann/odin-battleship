@@ -37,16 +37,16 @@ const handleShipPlacment = (e) => {
       e.target.removeEventListener('click', handleShipPlacment);
     }
   if (players.player1.gameboard.allShipsPlaced()) {
-    cells.slice(0,100).filter(cell => cell.firstChild).forEach(cell => {
+    cells.slice(0, 100).filter(cell => cell.classList.contains('border-y')).forEach(cell => {
       setTimeout(() => {
-        cell.removeChild(cell.firstChild);
+        cell.classList = 'cell';
       }, 1000);
-    });
+    })
   }
   if (players.player2.gameboard.allShipsPlaced()) {
-    cells.slice(100).filter(cell => cell.firstChild).forEach(cell => {
+    cells.slice(100).filter(cell => cell.classList.contains('border-y')).forEach(cell => {
       setTimeout(() => {
-        cell.removeChild(cell.firstChild);
+        cell.classList = 'cell';
       }, 1000);
     })
   }

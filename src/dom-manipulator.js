@@ -3,7 +3,6 @@ import {
   handlePlayBtnClick,
   handlePlayAgain,
 } from "./event-handlers";
-import battleshipImg from './images/battleship2.svg';
 import fireImg1 from './images/fire1.gif';
 import fireImg2 from './images/fire2.gif';
 import dotImg from './images/dot-small.svg';
@@ -45,10 +44,10 @@ const placeShipOnUi = (gameboard, parentNode) => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const cell = parentNode.querySelectorAll(`.cell`)[+`${i}${j}`];
-      if (!gameboard[i][j] || cell.firstChild) continue;
-      const img = document.createElement('img');
-      img.src = battleshipImg;
-      cell.appendChild(img);
+      if (!gameboard[i][j] || cell.firstChild) continue
+      if (!gameboard[i][j-1]) cell.classList.add('border-left');
+      if (!gameboard[i][j+1]) cell.classList.add('border-right');
+      cell.classList.add('border-y');
     }
   }
 };
