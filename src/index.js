@@ -1,7 +1,6 @@
 import './styles.css';
-import { renderGameboard, showDialog } from './dom-manipulator';
+import { renderGameboard } from './dom-manipulator';
 
 window.onload = () => {
   renderGameboard();
-  showDialog();
 };

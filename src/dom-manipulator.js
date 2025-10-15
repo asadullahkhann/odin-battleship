@@ -1,21 +1,128 @@
-import { 
-  handleShipPlacment, 
-  handlePlayBtnClick,
-  handlePlayAgain,
-} from "./event-handlers";
-import fireImg1 from './images/fire1.gif';
-import fireImg2 from './images/fire2.gif';
 import dotImg from './images/dot-small.svg';
-import explosionMp3 from './sounds/explosion.mp3';
+import fireImg from './images/fire.svg';
 import victoryMp3 from './sounds/victory.mp3';
-
-const explosionSound = new Audio(explosionMp3);
-const victorySound = new Audio(victoryMp3);
+import failMp3 from './sounds/fail.mp3';
+import { createPlayers } from './players';
 
 const mainEl = document.querySelector('main');
-const dialog = document.querySelector('dialog');
-const playBtn = document.querySelector('button');
-const playAgainBtn = document.querySelector('div > button');
+const selectBtn = document.querySelector('.toggle-dropdown > button');
+const playBtns = document.querySelectorAll('.dropdown-menu > button');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+const infoPara = document.querySelector('header > p');
+
+let players = createPlayers('computer');
+
+const getUiBoards = () => document.querySelectorAll('main > div');
+const getCells = () => Array.from(document.querySelectorAll('.cell'));
+const getRandomCoordinates = () => {
+  const emptyCells = getCells().slice(0,100).filter(cell => !cell.firstChild)
+  const randomIndex = Math.floor(Math.random() * emptyCells.length)
+  const randomEmptyCell = emptyCells[randomIndex];
+  const coordinates = randomEmptyCell.getAttribute('data-coordinates');
+  return coordinates;
+};
+
+const setupUIBoardForAttack = () => {
+  const cells = getCells();
+  cells.forEach(cell => {
+    cell.classList = 'cell';
+    cell.onclick = handleShipAttack
+  });
+};
+
+const sounds = {
+  victorySound: new Audio(victoryMp3),
+  failSound: new Audio(failMp3)
+};
+
+const handleShipPlacment = (e) => {
+  const [uiBoard1, uiBoard2] = getUiBoards();
+  const cells = getCells();
+  const [x, y] = e.target.getAttribute('data-coordinates');
+  const targetParent = e.target.parentNode;
+  const {player1, player2} = players;
+  player2.isCom && showInfo("Computer's ready. Place your ships on Grid #1.");
+  if (targetParent === uiBoard1 && !player1.gameboard.allShipsPlaced()) {
+    player1.gameboard.placeShip(+x, +y);
+    placeShipOnUi(player1.gameboard.board, uiBoard1);
+  } else if (targetParent === uiBoard2 && !player2.gameboard.allShipsPlaced()) {
+    player2.gameboard.placeShip(+x, +y);
+    placeShipOnUi(player2.gameboard.board, uiBoard2);
+  };
+  if (players.allShipsPlaced()) {
+    setTimeout(() => {
+      setupUIBoardForAttack();
+      player2.isCom
+      ? showInfo('The game started, your turn')
+      : showInfo('The game started! Your turn, Player 1!');
+    }, 1000);
+  } else if (player1.gameboard.allShipsPlaced()) {
+    setTimeout(() => {
+      cells.slice(0, 100).forEach(cell => {
+        cell.classList = 'cell';
+        showInfo('Waiting for Player 2 to finish placing ships.');
+      });
+      }, 1000);
+  } else if (!player2.isCom && player2.gameboard.allShipsPlaced()) {
+    setTimeout(() => {
+      cells.slice(100).forEach(cell => {
+        cell.classList = 'cell';
+        showInfo('Waiting for Player 1 to finish placing ships.');
+      });
+    }, 1000);
+  }
+}
+const handleShipAttack = (e) => {
+  if (players.hasAnyPlayerLost()) return;
+  const {player1, player2} = players;
+  const [uiBoard1, uiBoard2] = getUiBoards();
+  const [x, y] = e.target.getAttribute('data-coordinates');
+  const targetParent = e.target.parentNode;
+  if (players.turn === 1 && targetParent === uiBoard2) {
+    player2.gameboard.receiveAttack(+x, +y);
+    placeAttackOnUi(+x, +y, player2.gameboard.board, uiBoard2);
+    showInfo("Player 2, you're up!");
+    players.turn = 2;
+    e.target.onclick = null;
+  } 
+  if (player2.isCom && targetParent === uiBoard2) {
+    const [x, y] = getRandomCoordinates();
+    player1.gameboard.receiveAttack(+x, +y);
+    placeAttackOnUi(+x, +y, player1.gameboard.board, uiBoard1);
+    showInfo("The computer made its move. Now it's your turn.");
+    players.turn = 1;
+  } else if (players.turn === 2 && targetParent === uiBoard1) {
+    player1.gameboard.receiveAttack(+x, +y);
+    placeAttackOnUi(+x, +y, player1.gameboard.board, uiBoard1);
+    showInfo('Your turn, Player 1!');
+    players.turn = 1;
+    e.target.onclick = null;
+  };
+  if (player1.gameboard.allShipsSunk() && player2.isCom) {
+    sounds.failSound.play();
+    showInfo('You lose — all your ships sank');
+  } else if (player1.gameboard.allShipsSunk()) {
+    sounds.victorySound.play();
+    showInfo('Player 2 wins — all Player 1 ships sank');
+  } else if (player2.gameboard.allShipsSunk()) {
+    sounds.victorySound.play();
+    player2.isCom
+    ? showInfo('You win — all Computer ships sank')
+    : showInfo('Player 1 wins — all Player 2 ships sank');
+  };
+};
+
+const handlePlayBtnClick = (e) => {
+  const opponent = e.target.textContent;
+  players = createPlayers(opponent);
+  const cells = getCells();
+  cells.forEach(cell => {
+    cell.firstChild && cell.removeChild(cell.firstChild);
+    cell.classList = 'cell';
+    cell.onclick = handleShipPlacment;
+  });
+  showInfo('Place the ships.');
+};
 
 const renderGameboard = () => {
   const container = document.createElement('div');
@@ -24,20 +131,13 @@ const renderGameboard = () => {
       const cell = document.createElement('div');
       cell.setAttribute('class', 'cell');
       cell.setAttribute('data-coordinates', `${j}${i}`);
-      cell.addEventListener('click', handleShipPlacment)
       container.appendChild(cell);
     };
   };
   mainEl.appendChild(container);
   const clone = container.cloneNode(true);
-  clone.querySelectorAll('.cell').forEach(cell => {
-    cell.addEventListener('click', handleShipPlacment);
-  });
   mainEl.appendChild(clone);
-};
-
-const showDialog = () => {
-  dialog.showModal();
+  showInfo('Select an opponent to start the game.');
 };
 
 const placeShipOnUi = (gameboard, parentNode) => {
@@ -48,49 +148,32 @@ const placeShipOnUi = (gameboard, parentNode) => {
       if (!gameboard[i][j-1]) cell.classList.add('border-left');
       if (!gameboard[i][j+1]) cell.classList.add('border-right');
       cell.classList.add('border-y');
-    }
-  }
+    };
+  };
 };
 
 const placeAttackOnUi = (x, y, gameboard, parentNode) => {
   const img = document.createElement('img');
   const cell = parentNode.querySelectorAll('.cell')[+`${y}${x}`];
-  switch (gameboard[y][x]) {
-    case 0:
-      img.src = dotImg;
-      cell.appendChild(img);
-      break;
-    default:
-      explosionSound.play();
-      img.src = fireImg1;
-      cell.appendChild(img);
-      setTimeout(() => {
-        img.src = fireImg2;
-      }, 1000);
-  }
+  img.src = gameboard[y][x] ? fireImg : dotImg;
+  cell.appendChild(img);
 };
 
-const showWinningMessage = (msg) => {
-  setTimeout(() => {
-    victorySound.play();
-    dialog.querySelector('form').classList.add('hide');
-    dialog.querySelector('div').classList.remove('hide');
-    dialog.querySelector('div > p').textContent = msg;
-    dialog.showModal();
-  }, 1000);
-}
+const showInfo = (info) => {
+  infoPara.textContent = info;
+};
 
-playBtn.addEventListener('click', handlePlayBtnClick);
+selectBtn.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('hide');
+});
 
-playAgainBtn.addEventListener('click', () => {
-  handlePlayAgain();
-  dialog.close();
+playBtns.forEach(playBtn => {
+  playBtn.addEventListener('click', (e) => {
+    handlePlayBtnClick(e)
+    dropdownMenu.classList.add('hide');
+  });
 });
 
 export { 
   renderGameboard, 
-  showDialog, 
-  placeShipOnUi, 
-  placeAttackOnUi,
-  showWinningMessage,
 };

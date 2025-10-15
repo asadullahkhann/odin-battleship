@@ -2,26 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <title>Battleship</title>
 </head>
 <body>
-  <header><h1>Battleship</h1><p></p></header>
-  <main>
-    <dialog>
-    <form method="dialog">
-      <fieldset>
-        <legend>Choose Opponent</legend>
-        <p><label for="human">Human</label><input checked id="human" name="player-type" value="human" type="radio"></p>
-        <p><label for="computer">Computer</label><input id="computer" name="player-type" value="computer" type="radio"></p>
-      </fieldset>
-      <button>Play</button>
-    </form>
-    <div class="hide">
-      <p></p>
-      <button>Play again</button>
+  <header>
+    <h1>Battleship</h1>
+    <p></p>
+    <div>
+      <div class="toggle-dropdown">
+        <button><span>Select opponent</span> <img src="./images/dropdown-arrow.svg" alt="dropdown-arrow"></button>
+      </div>
+      <div class="hide dropdown-menu">
+        <img src="./images/pointer-up.svg" alt="pointer-up">
+        <button>human</button>
+        <button>computer</button>
+      </div>
     </div>
-  </dialog>
+  </header>
+  <main>
   </main>
   <footer>
     <p>
