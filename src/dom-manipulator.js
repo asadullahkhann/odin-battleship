@@ -15,11 +15,25 @@ let players = createPlayers('computer');
 const getUiBoards = () => document.querySelectorAll('main > div');
 const getCells = () => Array.from(document.querySelectorAll('.cell'));
 const getRandomCoordinates = () => {
-  const emptyCells = getCells().slice(0,100).filter(cell => !cell.firstChild)
+  const emptyCells = getCells().slice(0,100).filter(cell => !cell.firstChild);
   const randomIndex = Math.floor(Math.random() * emptyCells.length)
   const randomEmptyCell = emptyCells[randomIndex];
   const coordinates = randomEmptyCell.getAttribute('data-coordinates');
   return coordinates;
+};
+
+const getAdjacentCoordinates = () => {
+  const board = players.player1.gameboard.board;
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (board[i][j] !== 1) continue;
+      if (typeof board[i][j-1] === 'object' ) {
+        return `${j-1}${i}`;
+      } else if (typeof board[i][j+1] === 'object' ) {
+        return `${j+1}${i}`;
+      }
+    }
+  }
 };
 
 const setupUIBoardForAttack = () => {
@@ -86,7 +100,7 @@ const handleShipAttack = (e) => {
     e.target.onclick = null;
   } 
   if (player2.isCom && targetParent === uiBoard2) {
-    const [x, y] = getRandomCoordinates();
+    const [x, y] = getAdjacentCoordinates() || getRandomCoordinates();
     player1.gameboard.receiveAttack(+x, +y);
     placeAttackOnUi(+x, +y, player1.gameboard.board, uiBoard1);
     showInfo("The computer made its move. Now it's your turn.");

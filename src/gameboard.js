@@ -30,7 +30,10 @@ function createGameboard() {
   }
   const receiveAttack = (x, y) => {
     if (board[y][x] === null) board[y][x] = 0;
-    else board[y][x].hit(); 
+    else {
+      board[y][x].hit();
+      board[y][x] = 1;
+    }
   }
   const getShips = (row) => board[row].filter(item => item !== null && typeof item === 'object');
   const allShipsSunk = () => {
