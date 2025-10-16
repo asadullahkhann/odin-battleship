@@ -1,5 +1,5 @@
 import './styles.css';
-import { renderGameboard } from './dom-manipulator';
+import { renderGameboard } from './game-controller';
 
 window.onload = () => {
   renderGameboard();
