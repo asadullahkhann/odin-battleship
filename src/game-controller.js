@@ -98,7 +98,14 @@ const handleShipAttack = (e) => {
     showInfo("Player 2, you're up!");
     players.turn = 2;
     e.target.onclick = null;
-  } 
+  }
+  if (player2.gameboard.allShipsSunk()) {
+    sounds.victorySound.play();
+    player2.isCom
+    ? showInfo('You win — all Computer ships sank')
+    : showInfo('Player 1 wins — all Player 2 ships sank');
+    return;
+  };
   if (player2.isCom && targetParent === uiBoard2) {
     const [x, y] = getAdjacentCoordinates() || getRandomCoordinates();
     player1.gameboard.receiveAttack(+x, +y);
@@ -118,11 +125,6 @@ const handleShipAttack = (e) => {
   } else if (player1.gameboard.allShipsSunk()) {
     sounds.victorySound.play();
     showInfo('Player 2 wins — all Player 1 ships sank');
-  } else if (player2.gameboard.allShipsSunk()) {
-    sounds.victorySound.play();
-    player2.isCom
-    ? showInfo('You win — all Computer ships sank')
-    : showInfo('Player 1 wins — all Player 2 ships sank');
   };
 };
 
