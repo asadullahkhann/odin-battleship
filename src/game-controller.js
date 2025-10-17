@@ -102,8 +102,8 @@ const handleShipAttack = (e) => {
   if (player2.gameboard.allShipsSunk()) {
     sounds.victorySound.play();
     player2.isCom
-    ? showInfo('You win — all Computer ships sank')
-    : showInfo('Player 1 wins — all Player 2 ships sank');
+    ? showInfo('Computer fleet destroyed. You win.')
+    : showInfo('Player 2 fleet destroyed. Player 1 wins.');
     return;
   };
   if (player2.isCom && targetParent === uiBoard2) {
@@ -121,10 +121,10 @@ const handleShipAttack = (e) => {
   };
   if (player1.gameboard.allShipsSunk() && player2.isCom) {
     sounds.failSound.play();
-    showInfo('You lose — all your ships sank');
+    showInfo('Your fleet is destroyed. You lose.');
   } else if (player1.gameboard.allShipsSunk()) {
     sounds.victorySound.play();
-    showInfo('Player 2 wins — all Player 1 ships sank');
+    showInfo('Player 1 fleet destroyed. Player 2 wins.');
   };
 };
 
