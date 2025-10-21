@@ -159,7 +159,7 @@ const renderGameboard = () => {
 const placeShipOnUi = (gameboard, parentNode) => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
-      const cell = parentNode.querySelectorAll(`.cell`)[+`${i}${j}`];
+      const cell = parentNode.querySelector(`[data-coordinates="${j}${i}"]`);
       if (!gameboard[i][j] || cell.firstChild) continue
       if (!gameboard[i][j-1]) cell.classList.add('border-left');
       if (!gameboard[i][j+1]) cell.classList.add('border-right');
@@ -170,7 +170,7 @@ const placeShipOnUi = (gameboard, parentNode) => {
 
 const placeAttackOnUi = (x, y, gameboard, parentNode) => {
   const img = document.createElement('img');
-  const cell = parentNode.querySelectorAll('.cell')[+`${y}${x}`];
+  const cell = parentNode.querySelector(`[data-coordinates="${x}${y}"]`);
   img.src = gameboard[y][x] ? fireImg : dotImg;
   cell.appendChild(img);
 };
