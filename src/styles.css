@@ -57,6 +57,17 @@ header > div {
   position: absolute;
   z-index: 2;
   width: 130px;
+  animation: expand .3s ease-out;
+  transform-origin: top;
+}
+
+@keyframes expand {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }
 
 .toggle-dropdown > button {
@@ -149,7 +160,19 @@ main > div {
 }
 
 .hide {
+  animation: collapse .3s ease-in;
   display: none;
+}
+
+@keyframes collapse {
+  0% {
+    transform: scaleY(1);
+    display: flex;
+  }
+  100% {
+    transform: scaleY(0);
+    display: none;
+  }
 }
 
 footer > p, a {
