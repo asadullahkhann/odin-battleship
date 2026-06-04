@@ -1,5 +1,5 @@
 import dotImg from './images/dot-small.svg';
-import fireImg from './images/fire.svg';
+import crossImg from './images/cross-mark.svg';
 import victoryMp3 from './sounds/victory.mp3';
 import failMp3 from './sounds/fail.mp3';
 import { createPlayers } from './players';
@@ -55,7 +55,7 @@ const handleShipPlacment = (e) => {
   const [x, y] = e.target.getAttribute('data-coordinates');
   const targetParent = e.target.parentNode;
   const {player1, player2} = players;
-  player2.isCom && showInfo("Computer's ready. Place your ships on Grid #1.");
+  player2.isCom && showInfo("Place your ships on Grid 1.");
   if (targetParent === uiBoard1 && !player1.gameboard.allShipsPlaced()) {
     player1.gameboard.placeShip(+x, +y);
     placeShipOnUi(player1.gameboard.board, uiBoard1);
@@ -74,14 +74,14 @@ const handleShipPlacment = (e) => {
     setTimeout(() => {
       cells.slice(0, 100).forEach(cell => {
         cell.classList = 'cell';
-        showInfo('Waiting for Player 2 to finish placing ships.');
+        showInfo('Waiting for Player 2 to place ships');
       });
       }, 1000);
   } else if (!player2.isCom && player2.gameboard.allShipsPlaced()) {
     setTimeout(() => {
       cells.slice(100).forEach(cell => {
         cell.classList = 'cell';
-        showInfo('Waiting for Player 1 to finish placing ships.');
+        showInfo('Waiting for Player 1 to place ships');
       });
     }, 1000);
   }
@@ -110,7 +110,7 @@ const handleShipAttack = (e) => {
     const [x, y] = getAdjacentCoordinates() || getRandomCoordinates();
     player1.gameboard.receiveAttack(+x, +y);
     placeAttackOnUi(+x, +y, player1.gameboard.board, uiBoard1);
-    showInfo("The computer made its move. Now it's your turn.");
+    showInfo("Computer moved. Your turn.");
     players.turn = 1;
   } else if (players.turn === 2 && targetParent === uiBoard1) {
     player1.gameboard.receiveAttack(+x, +y);
@@ -171,7 +171,7 @@ const placeShipOnUi = (gameboard, parentNode) => {
 const placeAttackOnUi = (x, y, gameboard, parentNode) => {
   const img = document.createElement('img');
   const cell = parentNode.querySelector(`[data-coordinates="${x}${y}"]`);
-  img.src = gameboard[y][x] ? fireImg : dotImg;
+  img.src = gameboard[y][x] ? crossImg : dotImg;
   cell.appendChild(img);
 };
 
