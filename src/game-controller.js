@@ -87,6 +87,7 @@ const handleShipPlacment = (e) => {
   }
 }
 const handleShipAttack = (e) => {
+  if (!(e.target instanceof HTMLDivElement)) return;
   if (players.hasAnyPlayerLost()) return;
   const {player1, player2} = players;
   const [uiBoard1, uiBoard2] = getUiBoards();
