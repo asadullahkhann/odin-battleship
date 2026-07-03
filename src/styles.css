@@ -55,7 +55,7 @@ header > div {
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: absolute;
-  z-index: 2;
+  top: 30px;
   width: 130px;
   animation: expand .3s ease-out;
   transform-origin: top;
@@ -86,12 +86,16 @@ header > div {
   align-self: center;
 }
 
-.dropdown-menu > img {
+.dropdown-menu::before {
+  content: "";
   width: 10px;
   height: 10px;
-  position: relative;
-  bottom: 6px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: -5px;
+  z-index: -1;
   align-self: center;
+  background-color: #fff;
 }
 
 button {
@@ -175,19 +179,26 @@ main > div {
   }
 }
 
-footer > p, a {
-  font-size: 1rem;
+footer > p {
+  font-size: 14px;
   font-family: "ktf-roadbrush";
+  text-align: center;
 }
 
-footer a {
+a {
+  font-family: inherit;
   color: inherit;
+  text-underline-offset: 2px;
   display: inline-flex;
-  gap: 5px;
+  gap: 4px;
+  align-items: center;
 }
 
 footer img {
-  width: 16px;
-  height: 16px;
-  align-self: center;
+  width: 14px;
+  height: 14px;
+}
+
+.preload .hide {
+  animation: none;
 }
