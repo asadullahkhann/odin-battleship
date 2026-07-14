@@ -164,19 +164,13 @@ main > div {
 }
 
 .hide {
-  animation: collapse .3s ease-in;
+  opacity: 0;
+  transform: scaleY(0);
   display: none;
-}
-
-@keyframes collapse {
-  0% {
-    transform: scaleY(1);
-    display: flex;
-  }
-  100% {
-    transform: scaleY(0);
-    display: none;
-  }
+  transition-property: opacity, transform, display;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in;
+  transition-behavior: allow-discrete;
 }
 
 footer > p {
@@ -197,8 +191,4 @@ a {
 footer img {
   width: 16px;
   height: 16px;
-}
-
-.preload .hide {
-  animation: none;
 }
