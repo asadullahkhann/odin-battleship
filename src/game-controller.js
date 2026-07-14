@@ -5,7 +5,7 @@ import failMp3 from './sounds/fail.mp3';
 import { createPlayers } from './players';
 
 const mainEl = document.querySelector('main');
-const selectBtn = document.querySelector('.toggle-dropdown > button');
+const selectBtn = document.querySelector('.toggle-dropdown-btn');
 const playBtns = document.querySelectorAll('.dropdown-menu > button');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 const infoPara = document.querySelector('header > p');
