@@ -106,14 +106,19 @@ header > div {
 
 button {
   border: none;
-  border-radius: 2px;;
-  padding: 4px 4px;
+  border-radius: 2px;
+  padding: 4px;
   text-transform: capitalize;
 }
 
 button:hover {
   cursor: pointer;
-  background-color: #eeeeee;
+  background-color: #1a73e8;
+  color: #fff;
+}
+
+button:hover::after {
+  border-color: #fff;
 }
 
 header, footer {
