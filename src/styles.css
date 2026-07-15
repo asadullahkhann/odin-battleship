@@ -5,7 +5,12 @@
 
 @font-face {
   font-family: 'inter';
-  src: url('./fonts/Inter-Regular.otf');
+  src: url('./fonts/inter.woff2');
+}
+
+@font-face {
+  font-family: 'norse-bold';
+  src: url('./fonts/Norse-Bold.otf');
 }
 
 html, body {
@@ -34,7 +39,7 @@ header {
 }
 
 header > h1 {
-  font-family: 'ktf-roadbrush';
+  font-family: 'norse-bold';
 }
 
 header > p {
