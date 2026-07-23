@@ -1,9 +1,4 @@
 @font-face {
-  font-family: 'ktf-roadbrush';
-  src: url('./fonts/KTF-Roadbrush.ttf');
-}
-
-@font-face {
   font-family: 'inter';
   src: url('./fonts/inter.woff2');
 }
@@ -191,19 +186,13 @@ main > div {
   transition-behavior: allow-discrete;
 }
 
-footer > p {
-  font-size: 14px;
-  font-family: "ktf-roadbrush";
-  text-align: center;
-}
-
-a {
-  font-family: inherit;
-  color: inherit;
-  text-underline-offset: 2px;
-  display: inline-flex;
-  gap: 4px;
+footer {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 4px;
+  line-height: 1;
+  font-size: 0.8125rem;
 }
 
 footer img {
